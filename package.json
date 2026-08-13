@@ -1,0 +1,18 @@
+{
+  "name": "workwise",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Workwise - a multi-tenant team workspace and task coordination platform",
+  "author": "Vishal Malik",
+  "license": "MIT",
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "scripts": {
+    "dev:backend": "npm run dev --workspace backend",
+    "dev:frontend": "npm run dev --workspace frontend",
+    "build:frontend": "npm run build --workspace frontend",
+    "start:backend": "npm run start --workspace backend"
+  }
+}
