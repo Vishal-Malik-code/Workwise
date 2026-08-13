@@ -4,6 +4,8 @@ import { useState } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useProjects, useCreateProject } from "@/hooks/useProjects";
+import { useWorkspaceSocket } from "@/hooks/useWorkspaceSocket";
+import { PulsePanel } from "@/components/pulse-panel";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -13,6 +15,7 @@ export default function WorkspacePage() {
   const { data: projects, isLoading } = useProjects(workspaceId);
   const createProject = useCreateProject(workspaceId);
   const [name, setName] = useState("");
+  useWorkspaceSocket(workspaceId);
 
   function handleCreate(e) {
     e.preventDefault();
@@ -57,6 +60,10 @@ export default function WorkspacePage() {
       ) : (
         <p className="text-white/50">No projects yet — create one above.</p>
       )}
+
+      <div className="mt-8 max-w-xl">
+        <PulsePanel workspaceId={workspaceId} />
+      </div>
     </div>
   );
 }

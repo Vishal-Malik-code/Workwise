@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useParams } from "next/navigation";
 import { useTasks, useCreateTask, useUpdateTask } from "@/hooks/useTasks";
+import { useWorkspaceSocket } from "@/hooks/useWorkspaceSocket";
 import { TaskCard } from "@/components/task-card";
 import { Button } from "@/components/ui/button";
 import { Dialog } from "@/components/ui/dialog";
@@ -20,6 +21,7 @@ export default function ProjectBoardPage() {
   const { data: tasks, isLoading } = useTasks(workspaceId, projectId);
   const createTask = useCreateTask(workspaceId, projectId);
   const updateTask = useUpdateTask(workspaceId, projectId);
+  useWorkspaceSocket(workspaceId);
 
   const [dialogOpen, setDialogOpen] = useState(false);
   const [title, setTitle] = useState("");
