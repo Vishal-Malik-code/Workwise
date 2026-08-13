@@ -9,6 +9,7 @@ import { PulsePanel } from "@/components/pulse-panel";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { ApiError } from "@/lib/api";
 
 export default function WorkspacePage() {
   const { workspaceId } = useParams();
@@ -43,6 +44,11 @@ export default function WorkspacePage() {
           {createProject.isPending ? "Creating..." : "Create project"}
         </Button>
       </form>
+      {createProject.isError && (
+        <p className="mb-6 -mt-6 text-xs text-red-400">
+          {createProject.error instanceof ApiError ? createProject.error.message : "Couldn't create the project."}
+        </p>
+      )}
 
       {isLoading ? (
         <p className="text-white/50">Loading...</p>

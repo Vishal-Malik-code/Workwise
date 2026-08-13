@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { api } from "@/lib/api";
+import { api, ApiError } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
@@ -56,7 +56,18 @@ export function PulsePanel({ workspaceId }) {
           {ask.isPending ? "..." : "Ask"}
         </Button>
       </form>
+      {ask.isError && (
+        <p className="mb-4 text-xs text-red-400">
+          {ask.error instanceof ApiError ? ask.error.message : "Pulse couldn't process that request."}
+        </p>
+      )}
       {reply && <p className="mb-4 rounded-lg bg-white/5 p-3 text-sm text-white/70">{reply}</p>}
+
+      {decide.isError && (
+        <p className="mb-2 text-xs text-red-400">
+          {decide.error instanceof ApiError ? decide.error.message : "Couldn't process that proposal."}
+        </p>
+      )}
 
       {proposals?.length > 0 && (
         <div className="space-y-2">
@@ -65,10 +76,10 @@ export function PulsePanel({ workspaceId }) {
             <div key={p.id} className="flex items-center justify-between rounded-lg border border-white/10 p-3">
               <p className="text-sm">{p.summary}</p>
               <div className="flex gap-2">
-                <Button variant="secondary" onClick={() => decide.mutate({ proposalId: p.id, approve: true })}>
+                <Button variant="secondary" disabled={decide.isPending} onClick={() => decide.mutate({ proposalId: p.id, approve: true })}>
                   Approve
                 </Button>
-                <Button variant="danger" onClick={() => decide.mutate({ proposalId: p.id, approve: false })}>
+                <Button variant="danger" disabled={decide.isPending} onClick={() => decide.mutate({ proposalId: p.id, approve: false })}>
                   Reject
                 </Button>
               </div>
