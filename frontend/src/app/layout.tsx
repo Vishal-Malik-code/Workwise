@@ -1,12 +1,13 @@
 import "./globals.css";
+import type { Metadata } from "next";
 import { Providers } from "./providers";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Workwise",
   description: "Coordinate your team's work in one shared workspace.",
 };
 
-export default function RootLayout({ children }) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body>
