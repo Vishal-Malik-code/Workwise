@@ -28,8 +28,11 @@ export default function ProjectsPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <h1 className="text-xl font-semibold">Projects</h1>
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <p className="label-eyebrow mb-2">Workspace</p>
+          <h1 className="text-4xl font-bold uppercase tracking-tight text-foreground sm:text-5xl">Projects</h1>
+        </div>
         <form onSubmit={handleCreate} className="flex gap-2">
           <Input
             placeholder="New project name"

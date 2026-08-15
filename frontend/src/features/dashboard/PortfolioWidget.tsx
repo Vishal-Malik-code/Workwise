@@ -33,14 +33,14 @@ export function PortfolioWidget({ workspaceId }: PortfolioWidgetProps) {
         <div className="grid gap-3 sm:grid-cols-2">
           {projects.map((project) => (
             <Link key={project.id} href={`/dashboard/${workspaceId}/projects/${project.id}`}>
-              <div className="card-hover-lift h-full rounded-lg border border-border bg-background/40 p-4">
-                <h3 className="font-medium text-foreground">{project.name}</h3>
+              <div className="card-hover-lift h-full border border-border bg-background p-4">
+                <h3 className="font-bold text-foreground">{project.name}</h3>
                 {project.description ? (
                   <p className="mt-1 line-clamp-2 text-sm text-muted">{project.description}</p>
                 ) : (
                   <p className="mt-1 text-sm text-muted">No description</p>
                 )}
-                <p className="mt-3 text-xs text-muted">Created {formatDate(project.createdAt)}</p>
+                <p className="mt-3 font-mono text-xs text-muted">Created {formatDate(project.createdAt)}</p>
               </div>
             </Link>
           ))}
