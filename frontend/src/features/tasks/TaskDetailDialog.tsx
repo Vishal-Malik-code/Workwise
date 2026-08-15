@@ -14,7 +14,7 @@ export interface TaskDetailDialogProps {
 export function TaskDetailDialog({ workspaceId, projectId, taskId, onOpenChange }: TaskDetailDialogProps) {
   return (
     <Dialog open={!!taskId} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-3xl">
+      <DialogContent className="max-w-3xl max-h-[85vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Task details</DialogTitle>
         </DialogHeader>

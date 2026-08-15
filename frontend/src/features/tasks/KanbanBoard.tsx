@@ -15,7 +15,6 @@ import { TaskCard } from "./TaskCard";
 import { TaskDetailDialog } from "./TaskDetailDialog";
 import { useMoveTask } from "./useTasks";
 import { useMembers } from "@/features/members/useMembers";
-import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { SegmentedProgressBar } from "@/components/shared/SegmentedProgressBar";
@@ -58,28 +57,33 @@ function Column({
     <div
       ref={setNodeRef}
       className={cn(
-        "flex min-h-[200px] min-w-[280px] max-w-[320px] flex-1 flex-col rounded-lg p-2 transition-colors",
-        isOver && "bg-black/5",
+        "flex min-h-[200px] min-w-[280px] max-w-[320px] flex-1 flex-col border bg-background transition-colors",
+        isOver ? "border-accent" : "border-border",
       )}
     >
-      <div className="mb-1 px-1">
-        <h2 className="text-xs font-semibold uppercase tracking-wide text-muted">
-          {label} <span className="text-muted/70">({tasks.length})</span>
+      <div className="border-b border-border p-3">
+        <h2 className="flex items-baseline justify-between text-xs font-semibold uppercase tracking-wide text-foreground">
+          <span>{label}</span>
+          <span className="font-mono text-[11px] text-muted">{tasks.length}</span>
         </h2>
-        <p className="mt-0.5 text-xs text-muted/70">{description}</p>
+        <p className="mt-0.5 text-[11px] text-muted">{description}</p>
+        <SegmentedProgressBar
+          value={tasks.length}
+          max={totalTasks}
+          tone={STATUS_TONE[status]}
+          className="mt-2"
+        />
       </div>
-      <SegmentedProgressBar
-        value={tasks.length}
-        max={totalTasks}
-        tone={STATUS_TONE[status]}
-        className="mb-3 px-1"
-      />
-      {tasks.map((task) => (
-        <TaskCard key={task.id} task={task} workspaceId={workspaceId} projectId={projectId} onOpen={onOpenTask} />
-      ))}
-      {tasks.length === 0 && (
-        <Card className="border-dashed p-3 text-center text-xs text-muted">Drop tasks here</Card>
-      )}
+      <div className="flex flex-1 flex-col gap-2 p-2">
+        {tasks.map((task) => (
+          <TaskCard key={task.id} task={task} workspaceId={workspaceId} projectId={projectId} onOpen={onOpenTask} />
+        ))}
+        {tasks.length === 0 && (
+          <div className="flex flex-1 items-center justify-center border border-dashed border-border p-4 text-center text-[11px] uppercase tracking-wide text-muted">
+            Drop a task here
+          </div>
+        )}
+      </div>
     </div>
   );
 }
@@ -145,13 +149,13 @@ export function KanbanBoard({
 
   return (
     <DndContext sensors={sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
-      <div className="mb-4 flex flex-wrap items-center gap-4 rounded-lg border border-border p-3">
-        <span className="text-xs font-semibold uppercase tracking-wide text-muted">Board filters</span>
+      <div className="mb-4 flex flex-wrap items-center gap-5 border border-border p-3">
+        <span className="text-[11px] font-semibold uppercase tracking-wide text-muted">Board filters</span>
 
         <div className="flex items-center gap-2">
-          <span className="text-xs text-muted">Priority</span>
+          <span className="text-[11px] uppercase tracking-wide text-muted">Priority</span>
           <Select value={priorityFilter} onValueChange={(v) => setPriorityFilter(v as TaskPriority | "ALL")}>
-            <SelectTrigger className="h-8 w-[140px]">
+            <SelectTrigger className="h-8 w-[140px] text-xs">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -166,9 +170,9 @@ export function KanbanBoard({
         </div>
 
         <div className="flex items-center gap-2">
-          <span className="text-xs text-muted">Assignee</span>
+          <span className="text-[11px] uppercase tracking-wide text-muted">Assignee</span>
           <Select value={assigneeFilter} onValueChange={setAssigneeFilter}>
-            <SelectTrigger className="h-8 w-[160px]">
+            <SelectTrigger className="h-8 w-[160px] text-xs">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -183,7 +187,7 @@ export function KanbanBoard({
           </Select>
         </div>
 
-        <label className="flex items-center gap-2 text-xs text-muted">
+        <label className="flex items-center gap-2 text-[11px] uppercase tracking-wide text-muted">
           <Checkbox checked={includeArchived} onCheckedChange={(v) => setIncludeArchived(v === true)} />
           Include archived
         </label>

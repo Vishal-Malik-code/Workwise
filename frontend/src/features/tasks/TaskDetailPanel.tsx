@@ -235,19 +235,19 @@ export function TaskDetailPanel({ workspaceId, projectId, taskId, onClose }: Tas
       </div>
 
       {/* Right: discussion */}
-      <div className="flex flex-col rounded-lg border border-border p-4">
-        <h3 className="mb-3 text-sm font-semibold text-foreground">Discussion</h3>
+      <div className="flex flex-col border border-border p-4">
+        <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-foreground">Discussion</h3>
 
         {commentsLoading ? (
           <Skeleton className="h-20" />
         ) : comments?.length ? (
-          <div className="mb-4 flex-1 space-y-3 overflow-y-auto">
+          <div className="mb-4 flex-1 divide-y divide-border overflow-y-auto">
             {comments.map((c) => (
-              <div key={c.id} className="rounded-lg border border-border p-3">
+              <div key={c.id} className="py-3 first:pt-0">
                 <div className="mb-1 flex items-center justify-between">
-                  <span className="text-xs text-muted">{formatRelativeTime(c.createdAt)}</span>
+                  <span className="font-mono text-[11px] text-muted">{formatRelativeTime(c.createdAt)}</span>
                   <button
-                    className="text-xs text-muted hover:text-rose-600"
+                    className="text-[11px] uppercase tracking-wide text-muted hover:text-destructive"
                     onClick={() =>
                       deleteComment.mutate(c.id, {
                         onError: (err) => toast.error(err instanceof ApiError ? err.message : "Could not delete comment"),
@@ -257,7 +257,7 @@ export function TaskDetailPanel({ workspaceId, projectId, taskId, onClose }: Tas
                     Delete
                   </button>
                 </div>
-                <p className="text-sm text-foreground/90">{c.body}</p>
+                <p className="text-sm text-foreground">{c.body}</p>
               </div>
             ))}
           </div>
@@ -265,7 +265,7 @@ export function TaskDetailPanel({ workspaceId, projectId, taskId, onClose }: Tas
           <p className="mb-4 flex-1 text-sm text-muted">No comments yet.</p>
         )}
 
-        <form onSubmit={handleAddComment} className="flex flex-col gap-2">
+        <form onSubmit={handleAddComment} className="flex flex-col gap-2 border-t border-border pt-3">
           <Textarea
             placeholder="Add a comment..."
             value={commentBody}

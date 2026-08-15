@@ -13,21 +13,18 @@ export interface SegmentedProgressBarProps {
 }
 
 /**
- * Thin horizontal bar of small rounded segments — the filled fraction (using
- * the same tone system as StatusBadge) shows `value`'s share of `max`.
- * Purely presentational: derives its fill from data already fetched.
+ * Thin horizontal bar of small rectangular segments — the filled fraction
+ * (using the same tone system as StatusBadge) shows `value`'s share of
+ * `max`. Purely presentational: derives its fill from data already fetched.
  */
 export function SegmentedProgressBar({ value, max, tone, segments = 10, className }: SegmentedProgressBarProps) {
   const ratio = max > 0 ? value / max : 0;
   const filled = Math.min(segments, Math.round(ratio * segments));
 
   return (
-    <div className={cn("flex items-center gap-0.5", className)} role="img" aria-label={`${value} of ${max}`}>
+    <div className={cn("flex items-center gap-px", className)} role="img" aria-label={`${value} of ${max}`}>
       {Array.from({ length: segments }, (_, i) => (
-        <span
-          key={i}
-          className={cn("h-1.5 flex-1 rounded-full", i < filled ? TONE_FILL_CLASS[tone] : "bg-border")}
-        />
+        <span key={i} className={cn("h-1 flex-1", i < filled ? TONE_FILL_CLASS[tone] : "bg-border")} />
       ))}
     </div>
   );
