@@ -39,16 +39,19 @@ export default function SettingsPage() {
 
   return (
     <div className="max-w-2xl space-y-8">
-      <h1 className="text-xl font-semibold">Workspace settings</h1>
+      <div>
+        <p className="label-eyebrow mb-2">Workspace</p>
+        <h1 className="text-3xl font-bold uppercase tracking-tight text-foreground sm:text-4xl">Settings</h1>
+      </div>
 
       <GeneralSettings workspaceId={workspaceId} isLoading={isWorkspaceLoading} name={workspace?.name} />
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Labels</CardTitle>
+      <Card className="card-hover-lift">
+        <CardHeader className="border-b border-border pb-4">
+          <CardTitle className="text-sm font-semibold uppercase tracking-wide">Labels</CardTitle>
           <CardDescription>Manage labels used across projects and tasks in this workspace.</CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-4">
           <LabelsManager workspaceId={workspaceId} />
         </CardContent>
       </Card>
@@ -99,11 +102,11 @@ function GeneralSettings({
 
   return (
     <Card className="card-hover-lift">
-      <CardHeader>
-        <CardTitle>General</CardTitle>
+      <CardHeader className="border-b border-border pb-4">
+        <CardTitle className="text-sm font-semibold uppercase tracking-wide">General</CardTitle>
         <CardDescription>Basic details about this workspace.</CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="pt-4">
         {isLoading ? (
           <Skeleton className="h-10 w-full max-w-sm" />
         ) : (
@@ -151,11 +154,11 @@ function OwnershipSettings({ workspaceId, workspaceName }: { workspaceId: string
 
   return (
     <Card className="card-hover-lift">
-      <CardHeader>
-        <CardTitle>Ownership</CardTitle>
+      <CardHeader className="border-b border-border pb-4">
+        <CardTitle className="text-sm font-semibold uppercase tracking-wide">Ownership</CardTitle>
         <CardDescription>Transfer ownership of {workspaceName} to another member.</CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="pt-4">
         {otherMembers.length === 0 ? (
           <p className="text-sm text-muted">No other members to transfer ownership to.</p>
         ) : (
@@ -233,12 +236,12 @@ function DangerZone({
   }
 
   return (
-    <Card className="border-destructive/40">
-      <CardHeader>
-        <CardTitle className="text-destructive">Danger zone</CardTitle>
+    <Card className="border-destructive">
+      <CardHeader className="border-b border-destructive/30 pb-4">
+        <CardTitle className="text-sm font-semibold uppercase tracking-wide text-destructive">Danger zone</CardTitle>
         <CardDescription>Deleting a workspace permanently removes all its projects, tasks, and data.</CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="pt-4">
         <Dialog
           open={open}
           onOpenChange={(next) => {

@@ -3,11 +3,12 @@
 import { useState } from "react";
 import { toast } from "sonner";
 import { useCreateLabel, useDeleteLabel, useLabels } from "@/features/labels/useLabels";
-import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ApiError } from "@/lib/api-client";
+import { cn } from "@/lib/utils";
 
 const SWATCHES = ["#6366f1", "#22c55e", "#f59e0b", "#ef4444", "#06b6d4", "#a855f7", "#ec4899", "#6b7280"];
 
@@ -40,19 +41,34 @@ export function LabelsManager({ workspaceId }: { workspaceId: string }) {
 
   return (
     <div>
-      <form onSubmit={handleCreate} className="mb-4 flex flex-wrap items-center gap-2">
-        <Input placeholder="Label name" value={name} onChange={(e) => setName(e.target.value)} className="max-w-xs" />
-        <div className="flex gap-1.5">
-          {SWATCHES.map((swatch) => (
-            <button
-              key={swatch}
-              type="button"
-              onClick={() => setColor(swatch)}
-              aria-label={`Choose color ${swatch}`}
-              className="h-6 w-6 rounded-full ring-offset-2 ring-offset-background transition-shadow"
-              style={{ backgroundColor: swatch, boxShadow: color === swatch ? `0 0 0 2px ${swatch}` : "none" }}
-            />
-          ))}
+      <form onSubmit={handleCreate} className="mb-6 flex flex-wrap items-end gap-4 border border-border p-4">
+        <div className="flex flex-col gap-1.5">
+          <Label htmlFor="label-name">Label name</Label>
+          <Input
+            id="label-name"
+            placeholder="Label name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="max-w-xs"
+          />
+        </div>
+        <div className="flex flex-col gap-1.5">
+          <Label>Color</Label>
+          <div className="flex gap-1.5">
+            {SWATCHES.map((swatch) => (
+              <button
+                key={swatch}
+                type="button"
+                onClick={() => setColor(swatch)}
+                aria-label={`Choose color ${swatch}`}
+                className={cn(
+                  "h-6 w-6 border transition-shadow",
+                  color === swatch ? "border-foreground ring-2 ring-foreground ring-offset-2 ring-offset-background" : "border-border",
+                )}
+                style={{ backgroundColor: swatch }}
+              />
+            ))}
+          </div>
         </div>
         <Button type="submit" disabled={createLabel.isPending}>
           {createLabel.isPending ? "Creating..." : "Create label"}
@@ -66,17 +82,17 @@ export function LabelsManager({ workspaceId }: { workspaceId: string }) {
           ))}
         </div>
       ) : labels?.length ? (
-        <div className="space-y-2">
+        <div className="divide-y divide-border border border-border">
           {labels.map((label) => (
-            <Card key={label.id} className="flex items-center justify-between py-2.5">
-              <div className="flex items-center gap-2">
-                <span className="h-3 w-3 rounded-full" style={{ backgroundColor: label.color }} />
-                <span className="text-sm font-medium">{label.name}</span>
+            <div key={label.id} className="flex items-center justify-between px-4 py-3">
+              <div className="flex items-center gap-3">
+                <span className="h-3 w-3 border border-border" style={{ backgroundColor: label.color }} />
+                <span className="text-sm font-medium text-foreground">{label.name}</span>
               </div>
               <Button variant="ghost" size="sm" onClick={() => handleDelete(label.id)}>
                 Delete
               </Button>
-            </Card>
+            </div>
           ))}
         </div>
       ) : (

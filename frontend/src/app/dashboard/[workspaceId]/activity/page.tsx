@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { useParams } from "next/navigation";
 import { useActivity } from "@/features/activity/useActivity";
-import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -17,7 +16,8 @@ export default function ActivityPage() {
 
   return (
     <div>
-      <h1 className="mb-6 text-xl font-semibold">Activity</h1>
+      <p className="label-eyebrow mb-2">Workspace</p>
+      <h1 className="mb-8 text-3xl font-bold uppercase tracking-tight text-foreground sm:text-4xl">Activity</h1>
 
       {isLoading ? (
         <div className="space-y-2">
@@ -26,9 +26,9 @@ export default function ActivityPage() {
           ))}
         </div>
       ) : data?.items.length ? (
-        <div className="space-y-2">
+        <div className="divide-y divide-border border border-border">
           {data.items.map((log) => (
-            <Card key={log.id} className="py-3">
+            <div key={log.id} className="px-4 py-3">
               <div className="flex items-center justify-between gap-3">
                 <div className="flex items-center gap-2">
                   <Badge variant="accent">{titleCase(log.action.replace(/\./g, "_"))}</Badge>
@@ -37,12 +37,12 @@ export default function ActivityPage() {
                     {log.targetId ? ` · ${log.targetId.slice(0, 8)}` : ""}
                   </span>
                 </div>
-                <span className="text-xs text-muted">{formatDateTime(log.createdAt)}</span>
+                <span className="font-mono text-xs text-muted">{formatDateTime(log.createdAt)}</span>
               </div>
               {log.metadata && Object.keys(log.metadata).length > 0 && (
                 <DiffView metadata={log.metadata} />
               )}
-            </Card>
+            </div>
           ))}
         </div>
       ) : (
@@ -53,7 +53,7 @@ export default function ActivityPage() {
         <Button variant="outline" size="sm" disabled={page <= 1} onClick={() => setPage((p) => Math.max(1, p - 1))}>
           Previous
         </Button>
-        <span className="text-xs text-muted">Page {page}</span>
+        <span className="font-mono text-xs text-muted">Page {page}</span>
         <Button
           variant="outline"
           size="sm"
@@ -72,11 +72,11 @@ function DiffView({ metadata }: { metadata: Record<string, unknown> }) {
 
   if (hasOldNew) {
     return (
-      <div className="mt-2 grid grid-cols-2 gap-2 text-xs">
-        <pre className="overflow-x-auto rounded-md bg-red-500/10 p-2 text-red-300">
+      <div className="mt-3 grid grid-cols-2 gap-2 font-mono text-xs">
+        <pre className="overflow-x-auto border border-destructive/40 bg-destructive/5 p-2 text-destructive">
           {JSON.stringify(metadata.oldValue ?? null, null, 2)}
         </pre>
-        <pre className="overflow-x-auto rounded-md bg-emerald-500/10 p-2 text-emerald-300">
+        <pre className="overflow-x-auto border border-border bg-surface p-2 text-foreground">
           {JSON.stringify(metadata.newValue ?? null, null, 2)}
         </pre>
       </div>
@@ -84,7 +84,7 @@ function DiffView({ metadata }: { metadata: Record<string, unknown> }) {
   }
 
   return (
-    <pre className="mt-2 overflow-x-auto rounded-md bg-black/30 p-2 text-xs text-muted">
+    <pre className="mt-3 overflow-x-auto border border-border bg-surface p-2 font-mono text-xs text-muted">
       {JSON.stringify(metadata, null, 2)}
     </pre>
   );
