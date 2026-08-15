@@ -1,8 +1,12 @@
 import "dotenv/config";
 import { defineConfig } from "drizzle-kit";
 
+if (!process.env.DATABASE_URL) {
+  throw new Error("DATABASE_URL is required to run drizzle-kit");
+}
+
 export default defineConfig({
-  schema: "./src/db/schema*.js",
+  schema: "./src/db/schema/index.ts",
   out: "./drizzle",
   dialect: "postgresql",
   dbCredentials: {
