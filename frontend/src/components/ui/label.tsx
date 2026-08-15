@@ -10,7 +10,10 @@ export const Label = forwardRef<
 >(({ className, ...props }, ref) => (
   <RadixLabel.Root
     ref={ref}
-    className={cn("text-sm font-medium leading-none text-foreground peer-disabled:opacity-50", className)}
+    className={cn(
+      "text-xs font-semibold uppercase tracking-wide leading-none text-foreground peer-disabled:opacity-50",
+      className,
+    )}
     {...props}
   />
 ));

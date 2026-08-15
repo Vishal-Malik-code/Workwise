@@ -20,13 +20,13 @@ interface StatTileProps {
 
 function StatTile({ label, value, isLoading }: StatTileProps) {
   return (
-    <div className={cn("glass-card rounded-xl border border-border p-4")}>
-      <p className="text-xs font-medium uppercase tracking-wide text-muted">{label}</p>
+    <div className={cn("border border-border bg-background p-5")}>
       {isLoading ? (
-        <Skeleton className="mt-2 h-7 w-12" />
+        <Skeleton className="h-11 w-16" />
       ) : (
-        <p className="mt-1 text-2xl font-semibold text-foreground">{value}</p>
+        <p className="font-mono text-5xl font-bold tabular-nums text-foreground">{value}</p>
       )}
+      <p className="label-eyebrow mt-2">{label}</p>
     </div>
   );
 }

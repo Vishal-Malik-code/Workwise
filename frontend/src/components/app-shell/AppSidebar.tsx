@@ -62,17 +62,15 @@ export function AppSidebar({ open, onClose }: AppSidebarProps) {
         )}
       >
         <div className="flex items-center justify-between px-5 py-5">
-          <Link href="/dashboard" className="text-lg font-semibold text-sidebar-fg">
+          <Link href="/dashboard" className="text-lg font-bold uppercase tracking-wide text-sidebar-fg">
             Workwise
           </Link>
         </div>
 
-        <div className="px-5 pb-4">
-          <label className="mb-1 block text-xs font-medium uppercase tracking-wide text-sidebar-fg/60">
-            Workspace
-          </label>
+        <div className="px-5 pb-5">
+          <label className="label-eyebrow mb-2 block">Workspace</label>
           <select
-            className="w-full rounded-lg border border-sidebar-border bg-sidebar-bg px-3 py-2 text-sm text-sidebar-fg outline-none focus-visible:ring-2 focus-visible:ring-sidebar-accent"
+            className="w-full border border-sidebar-border bg-sidebar-bg px-3 py-2 text-sm text-sidebar-fg outline-none focus-visible:ring-2 focus-visible:ring-sidebar-accent"
             value={workspaceId ?? ""}
             onChange={(event) => handleWorkspaceChange(event.target.value)}
           >
@@ -89,7 +87,7 @@ export function AppSidebar({ open, onClose }: AppSidebarProps) {
           </select>
         </div>
 
-        <nav className="flex-1 space-y-1 px-3">
+        <nav className="flex-1 space-y-0.5 px-3">
           {base
             ? NAV_ITEMS.map((item) => {
                 const href = `${base}${item.href}`;
@@ -100,8 +98,8 @@ export function AppSidebar({ open, onClose }: AppSidebarProps) {
                     href={href}
                     onClick={onClose}
                     className={cn(
-                      "block rounded-lg px-3 py-2 text-sm font-medium text-sidebar-fg/70 transition-colors hover:bg-white/5 hover:text-sidebar-fg",
-                      active && "bg-white/10 text-sidebar-fg",
+                      "block border-l-2 border-transparent px-4 py-2.5 text-sm font-medium text-muted transition-colors hover:border-border hover:bg-surface hover:text-sidebar-fg",
+                      active && "border-sidebar-accent bg-surface font-bold text-sidebar-fg",
                     )}
                   >
                     {item.label}
@@ -121,7 +119,7 @@ export function AppSidebar({ open, onClose }: AppSidebarProps) {
           <Button
             variant="ghost"
             size="sm"
-            className="w-full justify-start text-sidebar-fg/80 hover:bg-white/5 hover:text-sidebar-fg"
+            className="w-full justify-start text-sidebar-fg/80 hover:bg-surface hover:text-sidebar-fg"
             onClick={handleLogout}
             disabled={logout.isPending}
           >

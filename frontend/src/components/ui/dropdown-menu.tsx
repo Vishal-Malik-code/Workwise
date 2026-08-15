@@ -19,7 +19,7 @@ export const DropdownMenuContent = forwardRef<
       ref={ref}
       sideOffset={sideOffset}
       className={cn(
-        "z-50 min-w-[10rem] overflow-hidden rounded-lg border border-border bg-background p-1 text-foreground shadow-xl",
+        "z-50 min-w-[10rem] overflow-hidden border border-border bg-background p-1 text-foreground shadow-lg",
         className,
       )}
       {...props}
@@ -35,7 +35,7 @@ export const DropdownMenuItem = forwardRef<
   <RadixDropdownMenu.Item
     ref={ref}
     className={cn(
-      "relative flex cursor-pointer select-none items-center rounded-md px-2 py-1.5 text-sm outline-none transition-colors data-[highlighted]:bg-white/10 data-[disabled]:opacity-50",
+      "relative flex cursor-pointer select-none items-center px-2 py-1.5 text-sm outline-none transition-colors data-[highlighted]:bg-surface data-[disabled]:opacity-50",
       inset && "pl-8",
       className,
     )}
@@ -52,7 +52,7 @@ export const DropdownMenuCheckboxItem = forwardRef<
     ref={ref}
     checked={checked}
     className={cn(
-      "relative flex cursor-pointer select-none items-center rounded-md py-1.5 pl-8 pr-2 text-sm outline-none data-[highlighted]:bg-white/10",
+      "relative flex cursor-pointer select-none items-center py-1.5 pl-8 pr-2 text-sm outline-none data-[highlighted]:bg-surface",
       className,
     )}
     {...props}
@@ -74,7 +74,7 @@ export const DropdownMenuRadioItem = forwardRef<
   <RadixDropdownMenu.RadioItem
     ref={ref}
     className={cn(
-      "relative flex cursor-pointer select-none items-center rounded-md py-1.5 pl-8 pr-2 text-sm outline-none data-[highlighted]:bg-white/10",
+      "relative flex cursor-pointer select-none items-center py-1.5 pl-8 pr-2 text-sm outline-none data-[highlighted]:bg-surface",
       className,
     )}
     {...props}
@@ -95,7 +95,7 @@ export const DropdownMenuLabel = forwardRef<
 >(({ className, inset, ...props }, ref) => (
   <RadixDropdownMenu.Label
     ref={ref}
-    className={cn("px-2 py-1.5 text-xs font-semibold text-muted", inset && "pl-8", className)}
+    className={cn("px-2 py-1.5 text-xs font-semibold uppercase tracking-wide text-muted", inset && "pl-8", className)}
     {...props}
   />
 ));
@@ -117,7 +117,7 @@ export const DropdownMenuSubTrigger = forwardRef<
   <RadixDropdownMenu.SubTrigger
     ref={ref}
     className={cn(
-      "flex cursor-pointer select-none items-center rounded-md px-2 py-1.5 text-sm outline-none data-[highlighted]:bg-white/10",
+      "flex cursor-pointer select-none items-center px-2 py-1.5 text-sm outline-none data-[highlighted]:bg-surface",
       inset && "pl-8",
       className,
     )}
@@ -135,7 +135,7 @@ export const DropdownMenuSubContent = forwardRef<
 >(({ className, ...props }, ref) => (
   <RadixDropdownMenu.SubContent
     ref={ref}
-    className={cn("z-50 min-w-[8rem] overflow-hidden rounded-lg border border-border bg-background p-1 shadow-xl", className)}
+    className={cn("z-50 min-w-[8rem] overflow-hidden border border-border bg-background p-1 shadow-lg", className)}
     {...props}
   />
 ));

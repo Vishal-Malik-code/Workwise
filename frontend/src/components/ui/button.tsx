@@ -4,20 +4,20 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 export const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-medium transition-colors disabled:opacity-50 disabled:pointer-events-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap uppercase tracking-wide text-xs font-semibold transition-colors disabled:opacity-50 disabled:pointer-events-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background active:translate-y-px",
   {
     variants: {
       variant: {
-        primary: "bg-accent text-white hover:bg-indigo-400",
-        secondary: "bg-white/10 text-foreground hover:bg-white/20",
-        ghost: "bg-transparent text-foreground/80 hover:bg-white/10",
-        danger: "bg-red-500/90 text-white hover:bg-red-500",
-        outline: "border border-border bg-transparent text-foreground hover:bg-white/5",
+        primary: "bg-accent text-accent-foreground border border-accent hover:bg-foreground hover:border-foreground",
+        secondary: "bg-white text-foreground border border-border hover:border-foreground",
+        ghost: "bg-transparent text-foreground border border-transparent hover:border-border hover:bg-surface",
+        danger: "bg-destructive text-white border border-destructive hover:bg-foreground hover:border-foreground",
+        outline: "border border-foreground bg-transparent text-foreground hover:bg-foreground hover:text-background",
       },
       size: {
-        sm: "h-8 px-3 text-xs",
+        sm: "h-8 px-3 text-[11px]",
         md: "h-10 px-4",
-        lg: "h-11 px-6 text-base",
+        lg: "h-11 px-6 text-sm",
         icon: "h-9 w-9 p-0",
       },
     },

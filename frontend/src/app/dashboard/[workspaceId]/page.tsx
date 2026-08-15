@@ -11,7 +11,10 @@ export default function WorkspacePage() {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-xl font-semibold">Overview</h1>
+      <div>
+        <p className="label-eyebrow mb-2">Workspace overview</p>
+        <h1 className="text-4xl font-bold uppercase tracking-tight text-foreground sm:text-5xl">Overview</h1>
+      </div>
 
       <OverviewStatsWidget workspaceId={workspaceId} />
 

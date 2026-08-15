@@ -55,14 +55,14 @@ export default function LoginPage() {
     <main className="grid min-h-screen lg:grid-cols-2">
       <div className="flex flex-col justify-center px-6 py-12 sm:px-10">
         <div className="mx-auto w-full max-w-sm">
-          <Link href="/" className="mb-10 inline-block text-lg font-semibold tracking-tight">
+          <Link href="/" className="mb-12 inline-block text-lg font-bold uppercase tracking-tight">
             Workwise
           </Link>
 
-          <h1 className="mb-1 text-2xl font-semibold tracking-tight">Welcome back</h1>
-          <p className="mb-8 text-sm text-muted">Log in to pick up where your team left off.</p>
+          <h1 className="mb-2 text-4xl font-bold uppercase leading-none tracking-tight">Sign in.</h1>
+          <p className="mb-9 text-sm text-muted">Log in to pick up where your team left off.</p>
 
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
             <div className="space-y-1.5">
               <Label htmlFor="email">Email</Label>
               <Input id="email" type="email" autoComplete="email" {...register("email")} />
@@ -74,68 +74,59 @@ export default function LoginPage() {
               {errors.password && <p className="text-xs text-destructive">{errors.password.message}</p>}
             </div>
             {formError && (
-              <p className="rounded-lg border border-destructive/30 bg-destructive/10 px-3 py-2 text-xs text-destructive">
+              <p className="border border-destructive/40 bg-destructive/5 px-3 py-2 text-xs text-destructive">
                 {formError}
               </p>
             )}
             <Button type="submit" disabled={isSubmitting} className="w-full">
               {isSubmitting && <Loader2 className="size-4 animate-spin" />}
-              {isSubmitting ? "Logging in..." : "Log in"}
+              {isSubmitting ? "Logging in..." : "Authenticate"}
             </Button>
           </form>
 
-          <div className="my-6 flex items-center gap-3">
+          <div className="my-7 flex items-center gap-3">
             <div className="h-px flex-1 bg-border" />
-            <span className="text-xs text-muted">or</span>
+            <span className="label-eyebrow">Or</span>
             <div className="h-px flex-1 bg-border" />
           </div>
 
-          <Button
-            variant="outline"
-            className="w-full"
-            disabled={demoLogin.isPending}
-            onClick={handleDemo}
-          >
+          <Button variant="outline" className="w-full" disabled={demoLogin.isPending} onClick={handleDemo}>
             {demoLogin.isPending && <Loader2 className="size-4 animate-spin" />}
             Try the guest demo
           </Button>
 
-          <p className="mt-6 text-center text-sm text-muted">
+          <p className="mt-7 text-center text-xs uppercase tracking-wide text-muted">
             No account?{" "}
-            <Link href="/register" className="font-medium text-accent hover:underline">
+            <Link href="/register" className="font-semibold text-accent hover:underline">
               Sign up
             </Link>
           </p>
         </div>
       </div>
 
-      <div className="relative hidden overflow-hidden bg-sidebar-bg lg:flex lg:flex-col lg:justify-between lg:p-12">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 opacity-70"
-          style={{
-            background:
-              "radial-gradient(circle at 20% 15%, color-mix(in srgb, var(--sidebar-accent) 35%, transparent), transparent 55%), radial-gradient(circle at 80% 80%, color-mix(in srgb, var(--accent) 40%, transparent), transparent 50%)",
-          }}
-        />
+      <div className="relative hidden overflow-hidden border-l border-border bg-foreground lg:flex lg:flex-col lg:justify-between lg:p-12">
         <div className="relative">
-          <span className="text-lg font-semibold tracking-tight text-sidebar-fg">Workwise</span>
+          <span className="text-lg font-bold uppercase tracking-tight text-background">Workwise</span>
         </div>
-        <div className="relative max-w-sm space-y-6">
-          <p className="text-2xl font-medium leading-snug text-sidebar-fg">
-            Every task tracked, every change approved, every teammate in sync.
+        <div className="relative max-w-sm space-y-8">
+          <p className="text-3xl font-bold uppercase leading-[1.05] tracking-tight text-background">
+            Every task tracked.
+            <br />
+            Every change <span className="text-accent">approved</span>.
+            <br />
+            Every teammate in sync.
           </p>
-          <div className="flex flex-col gap-3 text-sm text-sidebar-fg/80">
+          <div className="flex flex-col gap-3 border-t border-background/20 pt-6 text-xs uppercase tracking-wide text-background/70">
             <div className="flex items-center gap-2">
-              <KanbanSquare className="size-4 text-sidebar-accent" />
+              <KanbanSquare className="size-4 text-accent" />
               Shared Kanban boards across every project
             </div>
             <div className="flex items-center gap-2">
-              <Sparkles className="size-4 text-sidebar-accent" />
+              <Sparkles className="size-4 text-accent" />
               Pulse drafts, your team approves
             </div>
             <div className="flex items-center gap-2">
-              <ShieldCheck className="size-4 text-sidebar-accent" />
+              <ShieldCheck className="size-4 text-accent" />
               Role-based access on every workspace
             </div>
           </div>

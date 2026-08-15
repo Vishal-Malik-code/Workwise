@@ -16,7 +16,7 @@ export const SelectTrigger = forwardRef<
   <RadixSelect.Trigger
     ref={ref}
     className={cn(
-      "flex h-10 w-full items-center justify-between rounded-lg border border-border bg-black/[0.03] px-3 py-2 text-sm text-foreground outline-none focus:border-accent disabled:opacity-50",
+      "flex h-10 w-full items-center justify-between border border-border bg-background px-3 py-2 text-sm text-foreground outline-none transition-colors focus:border-accent focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:opacity-50",
       className,
     )}
     {...props}
@@ -38,7 +38,7 @@ export const SelectContent = forwardRef<
       ref={ref}
       position={position}
       className={cn(
-        "z-50 min-w-[8rem] overflow-hidden rounded-lg border border-border bg-background text-foreground shadow-xl",
+        "z-50 min-w-[8rem] overflow-hidden border border-border bg-background text-foreground shadow-lg",
         position === "popper" && "translate-y-1",
         className,
       )}
@@ -57,7 +57,7 @@ export const SelectItem = forwardRef<
   <RadixSelect.Item
     ref={ref}
     className={cn(
-      "relative flex w-full cursor-pointer select-none items-center rounded-md py-1.5 pl-8 pr-2 text-sm text-foreground outline-none data-[highlighted]:bg-black/5 data-[disabled]:opacity-50",
+      "relative flex w-full cursor-pointer select-none items-center py-1.5 pl-8 pr-2 text-sm text-foreground outline-none data-[highlighted]:bg-surface data-[disabled]:opacity-50",
       className,
     )}
     {...props}

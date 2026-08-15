@@ -38,20 +38,17 @@ export function ActivityWidget({ workspaceId }: ActivityWidgetProps) {
           ))}
         </div>
       ) : data?.items.length ? (
-        <ul className="space-y-1">
+        <ul className="divide-y divide-border border-t border-border">
           {data.items.map((log) => (
-            <li
-              key={log.id}
-              className="flex items-center justify-between gap-3 rounded-md px-2 py-2 hover:bg-white/[0.03]"
-            >
+            <li key={log.id} className="flex items-center justify-between gap-3 px-2 py-3">
               <div className="flex min-w-0 items-center gap-2">
-                <Badge variant="accent">{titleCase(log.action.replace(/\./g, "_"))}</Badge>
+                <Badge variant="orange">{titleCase(log.action.replace(/\./g, "_"))}</Badge>
                 <span className="truncate text-sm text-foreground/80">
                   {log.targetType}
                   {log.targetId ? ` · ${log.targetId.slice(0, 8)}` : ""}
                 </span>
               </div>
-              <span className="shrink-0 text-xs text-muted">{formatRelativeTime(log.createdAt)}</span>
+              <span className="shrink-0 font-mono text-xs text-muted">{formatRelativeTime(log.createdAt)}</span>
             </li>
           ))}
         </ul>

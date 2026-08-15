@@ -34,14 +34,14 @@ export const DialogContent = forwardRef<
     <RadixDialog.Content
       ref={ref}
       className={cn(
-        "fixed left-1/2 top-1/2 z-50 w-full max-w-md -translate-x-1/2 -translate-y-1/2 rounded-xl border border-border bg-background text-foreground p-6 shadow-xl outline-none",
+        "fixed left-1/2 top-1/2 z-50 w-full max-w-md -translate-x-1/2 -translate-y-1/2 border border-border bg-background text-foreground p-6 shadow-lg outline-none",
         className,
       )}
       {...props}
     >
       {children}
       {!hideClose && (
-        <RadixDialog.Close className="absolute right-4 top-4 text-muted hover:text-foreground">
+        <RadixDialog.Close className="absolute right-4 top-4 text-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background">
           <X size={18} />
         </RadixDialog.Close>
       )}
@@ -62,7 +62,11 @@ export const DialogTitle = forwardRef<
   React.ElementRef<typeof RadixDialog.Title>,
   React.ComponentPropsWithoutRef<typeof RadixDialog.Title>
 >(({ className, ...props }, ref) => (
-  <RadixDialog.Title ref={ref} className={cn("text-base font-semibold text-foreground", className)} {...props} />
+  <RadixDialog.Title
+    ref={ref}
+    className={cn("text-base font-semibold uppercase tracking-wide text-foreground", className)}
+    {...props}
+  />
 ));
 DialogTitle.displayName = "DialogTitle";
 

@@ -35,11 +35,11 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       <AppSidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
       <div className="flex min-h-screen flex-col">
-        <header className="sticky top-0 z-30 flex items-center justify-between border-b border-border bg-background/95 px-6 py-4 backdrop-blur">
+        <header className="sticky top-0 z-30 flex items-center justify-between border-b border-border bg-background px-6 py-4">
           <div className="flex items-center gap-3">
             <button
               type="button"
-              className="flex h-9 w-9 items-center justify-center rounded-lg border border-border text-foreground xl:hidden"
+              className="flex h-9 w-9 items-center justify-center border border-border text-foreground xl:hidden"
               onClick={() => setSidebarOpen(true)}
               aria-label="Open navigation"
             >
@@ -55,7 +55,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5" />
               </svg>
             </button>
-            <Link href="/dashboard" className="font-semibold xl:hidden">
+            <Link href="/dashboard" className="font-bold uppercase tracking-wide xl:hidden">
               Workwise
             </Link>
           </div>
@@ -64,8 +64,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <Avatar>
               <AvatarFallback>{user ? initials(user.name) : "?"}</AvatarFallback>
             </Avatar>
-            <span>{user?.name}</span>
-            <Button variant="ghost" onClick={handleLogout} disabled={logout.isPending}>
+            <span className="text-foreground">{user?.name}</span>
+            <Button variant="ghost" size="sm" onClick={handleLogout} disabled={logout.isPending}>
               Log out
             </Button>
           </div>

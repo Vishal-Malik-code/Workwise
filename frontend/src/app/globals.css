@@ -1,68 +1,97 @@
 @import "tailwindcss";
 
 :root {
-  /* Warm off-white main surface with sage-green primary accent */
-  --background: #f6f4ee;
-  --foreground: #23281f;
-  --muted: #6f7566;
-  --accent: #4a6b4d;
-  --border: #ded9cc;
-  --destructive: #9a3b2f;
+  /* Swiss / International Typographic Style: locked palette */
+  --background: #ffffff;
+  --foreground: #111111;
+  --muted: #666666;
+  --border: #e5e5e5;
+  --surface: #f5f5f5;
+  --accent: #ff6a00;
+  --accent-foreground: #ffffff;
+  --destructive: #b00020;
+  --black: #000000;
 
-  /* Sidebar gets its own darker, green-tinted palette */
-  --sidebar-bg: #17211a;
-  --sidebar-fg: #e7ece3;
-  --sidebar-accent: #7ea877;
-  --sidebar-border: #263124;
+  /* Sidebar mirrors the same system - light, bordered, not a separate dark theme */
+  --sidebar-bg: #ffffff;
+  --sidebar-fg: #111111;
+  --sidebar-accent: #ff6a00;
+  --sidebar-border: #e5e5e5;
+
+  --radius: 2px;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-muted: var(--muted);
-  --color-accent: var(--accent);
   --color-border: var(--border);
+  --color-surface: var(--surface);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
+  --color-black: var(--black);
 
   --color-sidebar-bg: var(--sidebar-bg);
   --color-sidebar-fg: var(--sidebar-fg);
   --color-sidebar-accent: var(--sidebar-accent);
   --color-sidebar-border: var(--sidebar-border);
+
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+
+  --radius-swiss: var(--radius);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+  font-family: var(--font-sans), ui-sans-serif, system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
 * {
   border-color: var(--border);
 }
 
+/* Swiss system: sharp corners everywhere by default. Radius is used only for
+   small interactive affordances (checkboxes, switches) via explicit overrides. */
+*,
+*::before,
+*::after {
+  border-radius: 0;
+}
+
+.font-mono,
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+.label-eyebrow {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
 .card-hover-lift {
   transition:
-    transform 200ms ease,
-    box-shadow 200ms ease;
+    border-color 150ms ease,
+    box-shadow 150ms ease;
 }
 
 .card-hover-lift:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 30px -12px rgb(0 0 0 / 0.25);
+  border-color: var(--foreground);
 }
 
 .glass-card {
-  background: color-mix(in srgb, var(--background) 70%, transparent);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: var(--background);
 }
 
 @media (prefers-reduced-motion: reduce) {
   .card-hover-lift {
-    transition: box-shadow 200ms ease;
-  }
-
-  .card-hover-lift:hover {
-    transform: none;
+    transition: none;
   }
 }
