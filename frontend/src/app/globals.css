@@ -7,7 +7,7 @@
   --muted: #666666;
   --border: #e5e5e5;
   --surface: #f5f5f5;
-  --accent: #ff6a00;
+  --accent: #9b2e04;
   --accent-foreground: #ffffff;
   --destructive: #b00020;
   --black: #000000;
@@ -15,7 +15,7 @@
   /* Sidebar mirrors the same system - light, bordered, not a separate dark theme */
   --sidebar-bg: #ffffff;
   --sidebar-fg: #111111;
-  --sidebar-accent: #ff6a00;
+  --sidebar-accent: #9b2e04;
   --sidebar-border: #e5e5e5;
 
   --radius: 2px;
