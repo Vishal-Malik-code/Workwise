@@ -1,12 +1,6 @@
 import type { Server } from "socket.io";
 import { getIo } from "./io-registry.js";
 
-export interface WorkspaceEventPayload {
-  resource: string;
-  action: string;
-  [key: string]: unknown;
-}
-
 function resolveIo(io?: Server | null): Server | null {
   return io ?? getIo();
 }

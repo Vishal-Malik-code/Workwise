@@ -3,7 +3,7 @@ import { db, schema } from "../../db/index.js";
 import type { DbClient } from "../../db/index.js";
 import { getPagination, type PaginationInput } from "../../utils/pagination.js";
 
-export interface RecordAuditInput {
+interface RecordAuditInput {
   dbClient?: DbClient;
   workspaceId: string;
   actorId: string | null;

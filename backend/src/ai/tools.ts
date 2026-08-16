@@ -43,16 +43,53 @@ export function buildReadTools(ctx: ToolContext) {
       },
     }),
 
+    listProjects: tool({
+      description:
+        "List every project in this workspace, with its description and task counts by status. Use this to answer questions about how many projects exist or to get an overview before drilling into one.",
+      parameters: toolParams({}),
+      execute: async () => {
+        const projects = await db
+          .select()
+          .from(schema.projects)
+          .where(eq(schema.projects.workspaceId, ctx.workspaceId));
+        const tasks = await db.select().from(schema.tasks).where(eq(schema.tasks.workspaceId, ctx.workspaceId));
+
+        return {
+          projectCount: projects.length,
+          projects: projects.map((p) => {
+            const projectTasks = tasks.filter((t) => t.projectId === p.id);
+            const counts: Record<string, number> = {};
+            for (const t of projectTasks) counts[t.status] = (counts[t.status] ?? 0) + 1;
+            return {
+              name: p.name,
+              description: p.description ?? null,
+              createdAt: p.createdAt,
+              taskCount: projectTasks.length,
+              counts,
+            };
+          }),
+        };
+      },
+    }),
+
     getProjectSummary: tool({
-      description: "Get a project's task counts by status, resolved by project name.",
+      description: "Get one project's description and task counts by status, resolved by project name.",
       parameters: toolParams({ projectName: z.string() }),
       execute: async ({ projectName }) => {
         const projectId = await resolveName(ctx.workspaceId, "project", projectName);
         if (!projectId) return { error: `No project matching "${projectName}"` };
+        const [project] = await db.select().from(schema.projects).where(eq(schema.projects.id, projectId));
         const rows = await db.select().from(schema.tasks).where(eq(schema.tasks.projectId, projectId));
         const counts: Record<string, number> = {};
         for (const t of rows) counts[t.status] = (counts[t.status] ?? 0) + 1;
-        return { projectId, taskCount: rows.length, counts };
+        return {
+          projectId,
+          name: project?.name,
+          description: project?.description ?? null,
+          createdAt: project?.createdAt,
+          taskCount: rows.length,
+          counts,
+        };
       },
     }),
 

@@ -3,7 +3,7 @@ import { env } from "../config/env.js";
 
 const JWT_EXPIRES_IN = "7d";
 
-export interface TokenPayload {
+interface TokenPayload {
   sub: string;
 }
 

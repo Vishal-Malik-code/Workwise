@@ -5,7 +5,7 @@ import { recordAudit } from "../activity/service.js";
 import { emitWorkspaceEvent } from "../../utils/socketEvents.js";
 import { createNotification } from "../notifications/service.js";
 
-export interface CreateTaskInput {
+interface CreateTaskInput {
   title: string;
   description?: string;
   priority?: "LOW" | "MEDIUM" | "HIGH" | "URGENT";
@@ -107,7 +107,7 @@ export async function getTask(workspaceId: string, taskId: string) {
   return task;
 }
 
-export interface UpdateTaskPatch {
+interface UpdateTaskPatch {
   title?: string;
   description?: string | null;
   status?: string;

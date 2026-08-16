@@ -5,7 +5,7 @@ import { AppError } from "../../utils/AppError.js";
 import { getPagination, type PaginationInput } from "../../utils/pagination.js";
 import { emitUserEvent } from "../../utils/socketEvents.js";
 
-export type NotificationType =
+type NotificationType =
   | "TASK_ASSIGNED"
   | "COMMENT_MENTION"
   | "TASK_STATUS_CHANGED"
@@ -13,7 +13,7 @@ export type NotificationType =
   | "MEMBER_INVITED"
   | "PROJECT_UPDATED";
 
-export interface CreateNotificationInput {
+interface CreateNotificationInput {
   dbClient?: DbClient;
   userId: string;
   workspaceId: string;
@@ -41,7 +41,7 @@ export async function createNotification({
   return notification;
 }
 
-export interface ListNotificationsOptions extends PaginationInput {
+interface ListNotificationsOptions extends PaginationInput {
   unreadOnly?: boolean | string;
 }
 
