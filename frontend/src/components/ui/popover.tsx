@@ -6,7 +6,6 @@ import { cn } from "@/lib/utils";
 
 export const Popover = RadixPopover.Root;
 export const PopoverTrigger = RadixPopover.Trigger;
-export const PopoverAnchor = RadixPopover.Anchor;
 
 export const PopoverContent = forwardRef<
   React.ElementRef<typeof RadixPopover.Content>,

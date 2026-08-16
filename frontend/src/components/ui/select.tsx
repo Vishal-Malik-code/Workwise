@@ -6,7 +6,6 @@ import { Check, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export const Select = RadixSelect.Root;
-export const SelectGroup = RadixSelect.Group;
 export const SelectValue = RadixSelect.Value;
 
 export const SelectTrigger = forwardRef<

@@ -7,10 +7,9 @@ import { cn } from "@/lib/utils";
 
 export const Dialog = RadixDialog.Root;
 export const DialogTrigger = RadixDialog.Trigger;
-export const DialogClose = RadixDialog.Close;
-export const DialogPortal = RadixDialog.Portal;
+const DialogPortal = RadixDialog.Portal;
 
-export const DialogOverlay = forwardRef<
+const DialogOverlay = forwardRef<
   React.ElementRef<typeof RadixDialog.Overlay>,
   React.ComponentPropsWithoutRef<typeof RadixDialog.Overlay>
 >(({ className, ...props }, ref) => (
@@ -77,31 +76,3 @@ export const DialogDescription = forwardRef<
   <RadixDialog.Description ref={ref} className={cn("text-sm text-muted", className)} {...props} />
 ));
 DialogDescription.displayName = "DialogDescription";
-
-// Legacy convenience wrapper preserving the old `<Dialog open onOpenChange title>` call
-// shape used throughout the pre-rewrite app, implemented on top of the primitives above.
-export function SimpleDialog({
-  open,
-  onOpenChange,
-  title,
-  description,
-  children,
-}: {
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
-  title: string;
-  description?: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>{title}</DialogTitle>
-          {description && <DialogDescription>{description}</DialogDescription>}
-        </DialogHeader>
-        {children}
-      </DialogContent>
-    </Dialog>
-  );
-}

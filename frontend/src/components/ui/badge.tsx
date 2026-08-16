@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 // bordered "tag" styling per the Swiss system rather than soft rounded pills.
 // Tone-to-color mapping is preserved from the prior system so callers (e.g.
 // StatusBadge) keep working unchanged.
-export const badgeVariants = cva(
+const badgeVariants = cva(
   "inline-flex items-center gap-1 border px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide",
   {
     variants: {
@@ -25,7 +25,7 @@ export const badgeVariants = cva(
   },
 );
 
-export interface BadgeProps extends HTMLAttributes<HTMLSpanElement>, VariantProps<typeof badgeVariants> {}
+interface BadgeProps extends HTMLAttributes<HTMLSpanElement>, VariantProps<typeof badgeVariants> {}
 
 export function Badge({ className, variant, ...props }: BadgeProps) {
   return <span className={cn(badgeVariants({ variant }), className)} {...props} />;
