@@ -12,3 +12,5 @@ coverage/
 .vscode/
 .idea/
 *.tsbuildinfo
+.claude/
+skills-lock.json
