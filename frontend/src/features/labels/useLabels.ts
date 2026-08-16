@@ -38,22 +38,3 @@ export function useAttachLabel(workspaceId: string) {
   });
 }
 
-export function useReplaceTaskLabels(workspaceId: string) {
-  const queryClient = useQueryClient();
-  return useMutation({
-    mutationFn: ({ taskId, labelIds }: { taskId: string; labelIds: string[] }) =>
-      labelsApi.replaceForTask(workspaceId, taskId, labelIds),
-    onSuccess: () =>
-      queryClient.invalidateQueries({ queryKey: ["workspaces", workspaceId], predicate: (q) => q.queryKey.includes("tasks") }),
-  });
-}
-
-export function useDetachLabel(workspaceId: string) {
-  const queryClient = useQueryClient();
-  return useMutation({
-    mutationFn: ({ labelId, taskId }: { labelId: string; taskId: string }) =>
-      labelsApi.detach(workspaceId, labelId, taskId),
-    onSuccess: () =>
-      queryClient.invalidateQueries({ queryKey: ["workspaces", workspaceId], predicate: (q) => q.queryKey.includes("tasks") }),
-  });
-}

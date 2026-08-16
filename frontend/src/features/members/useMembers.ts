@@ -13,14 +13,6 @@ export function useMembers(workspaceId: string | undefined) {
   });
 }
 
-export function useAddMember(workspaceId: string) {
-  const queryClient = useQueryClient();
-  return useMutation({
-    mutationFn: (body: { email: string; role?: Exclude<WorkspaceRole, "OWNER"> }) => membersApi.add(workspaceId, body),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["workspaces", workspaceId, "members"] }),
-  });
-}
-
 export function useUpdateMemberRole(workspaceId: string) {
   const queryClient = useQueryClient();
   return useMutation({

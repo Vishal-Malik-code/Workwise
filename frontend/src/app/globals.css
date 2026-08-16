@@ -86,10 +86,6 @@ body {
   border-color: var(--foreground);
 }
 
-.glass-card {
-  background: var(--background);
-}
-
 @media (prefers-reduced-motion: reduce) {
   .card-hover-lift {
     transition: none;
