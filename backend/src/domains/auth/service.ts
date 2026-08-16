@@ -3,6 +3,7 @@ import { db, schema } from "../../db/index.js";
 import { hashPassword, verifyPassword } from "../../utils/password.js";
 import { AppError } from "../../utils/AppError.js";
 import type { RegisterInput, LoginInput } from "./schemas.js";
+import { seedDemoWorkspaces } from "./demoSeed.js";
 
 const GUEST_EMAIL = "guest.evaluator@workwise.app";
 
@@ -42,7 +43,9 @@ export async function loginUser(input: LoginInput) {
 
 // Upserts a fixed guest account so evaluators can try the product without
 // registering. Password is not user-known/usable for login; this endpoint
-// is the only way in for this account.
+// is the only way in for this account. Every login re-seeds the guest's
+// workspaces from scratch so each visitor sees the same pristine,
+// feature-complete demo rather than whatever a previous visitor left behind.
 export async function loginAsGuest() {
   const [existing] = await db
     .select({ id: schema.users.id, name: schema.users.name, email: schema.users.email })
@@ -50,13 +53,17 @@ export async function loginAsGuest() {
     .where(eq(schema.users.email, GUEST_EMAIL))
     .limit(1);
 
-  if (existing) return existing;
+  let user = existing;
+  if (!user) {
+    const passwordHash = await hashPassword(`guest-${Date.now()}-${Math.random()}`);
+    const [created] = await db
+      .insert(schema.users)
+      .values({ name: "Guest Evaluator", email: GUEST_EMAIL, passwordHash })
+      .returning({ id: schema.users.id, name: schema.users.name, email: schema.users.email });
+    user = created;
+  }
 
-  const passwordHash = await hashPassword(`guest-${Date.now()}-${Math.random()}`);
-  const [user] = await db
-    .insert(schema.users)
-    .values({ name: "Guest Evaluator", email: GUEST_EMAIL, passwordHash })
-    .returning({ id: schema.users.id, name: schema.users.name, email: schema.users.email });
+  await seedDemoWorkspaces(user.id);
 
   return user;
 }
